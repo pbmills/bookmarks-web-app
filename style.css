@@ -1,0 +1,274 @@
+:root {
+   --light: #ffffff;
+   --dark: #1a1b1b;
+   --gray-100: #fafafa;
+   --gray-200: #f2f2f8;
+   --gray-300: #e5eaec;
+   --gray-400: #acbcc2;
+   --gray-500: #91a0a7;
+   --gray-600: #6e7980;
+   --accent: #b8e6fe;
+   --accent-dark: #2b7fff;
+   --accent-darker: #2a61b3;
+   --red: #ffe2e2;
+   --red-dark: #ff6467;
+
+   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+* {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+}
+
+*:focus {
+   outline: none;
+}
+
+*:focus-visible {
+   outline: 2px solid var(--accent);
+}
+
+body {
+   font-family: "Inter", sans-serif;
+   font-optical-sizing: auto;
+   font-weight: 400;
+   font-style: normal;
+}
+
+.outer-container {
+   min-height: 100dvh;
+   padding: 2rem 1rem;
+   background-color: var(--gray-300);
+   
+   @media screen and (min-width: 1280px) {
+      padding: 4rem 8rem;
+   }
+}
+
+.container {
+   max-width: 60rem;
+   width: 100%;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: column;
+   background-color: var(--light);
+   border-radius: 1rem;
+   box-shadow: var(--shadow-lg);
+   overflow: hidden;
+}
+
+.container + .container {
+   margin-top: 1rem;
+   
+   @media screen and (min-width: 1280px) {
+      margin-top: 2rem;
+   }
+}
+
+#header {
+   padding: 1rem 1.5rem;
+   border-bottom: 1px solid var(--gray-300);
+   
+   @media screen and (min-width: 1280px) {
+      padding: 2rem 4rem;
+   }
+}
+
+#header h1 {
+   font-weight: 500;
+   font-size: 1.5rem;
+   
+   @media screen and (min-width: 1280px) {
+      font-size: 2.5rem;
+   }
+}
+
+#url-form {
+   display: flex;
+   flex-direction: column;
+   align-items: stretch;
+   padding: 1.5rem;
+   gap: 1.5rem;
+   
+   @media screen and (min-width: 480px) {
+      align-items: flex-end;
+   }
+   
+   @media screen and (min-width: 1280px) {
+      padding: 2rem 4rem;
+      gap: 2rem;
+   }
+}
+
+#url-form .form-row {
+   width: 100%;
+   display: grid;
+   grid-template-columns: repeat(1, 1fr);
+   gap: 1.5rem;
+   
+   @media screen and (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+   }
+}
+
+#url-form .form-row .form-input-container {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: stretch;
+   gap: 0.5rem;
+}
+
+#url-form .form-row .form-input-container label {
+   width: 100%;
+   display: inline-block;
+}
+
+#url-form .form-row .form-input-container label sup {
+   color: #f00;
+}
+
+#url-form .form-row .form-input-container :is(input[type="text"], input[type="url"]) {
+   width: 100%;
+   min-width: 0;
+   appearance: none;
+   border: 1px solid var(--gray-300);
+   background-color: var(--gray-100);
+   padding: 0.75rem 1rem;
+   border-radius: 0.5rem;
+   font-size: 18px;
+}
+
+#url-form .form-row .form-input-container input.invalid {
+   border: 1px solid var(--red-dark);
+   background-color: var(--red);
+}
+
+#url-form .form-row .form-input-container input.invalid + .error {
+   display: inline-block;
+   visibility: visible;
+}
+
+#url-form .form-row .form-input-container :is(input[type="text"], input[type="url"])::placeholder {
+   color: var(--gray-600);
+}
+
+#url-form [type="submit"] {
+   appearance: none;
+   border: 1px solid transparent;
+   background-color: var(--accent-dark);
+   color: var(--light);
+   padding: 0.75rem 1rem;
+   border-radius: 0.5rem;
+   cursor: pointer;
+   font-size: 18px;
+   transition: background-color 0.2s ease-in;
+}
+
+#url-form .form-row .form-input-container .error {
+   display: none;
+   visibility: hidden;
+   color: #f00;
+   font-weight: 400;
+   font-size: 14px;
+}
+
+#url-form [type="submit"]:hover {
+   background-color: var(--accent-darker);
+}
+
+#bookmarks-table {
+   width: 100%;
+   background-color: var(--light);
+   border-spacing: 0;
+}
+
+#bookmarks-table thead {
+   width: 100%;
+   background-color: var(--gray-100);
+}
+
+#bookmarks-table :is(th, td) {
+   width: 100%;
+   padding: 1rem 1.4rem;
+   border-right: 1px solid var(--gray-300);
+   font-weight: 500;
+   text-align: left;
+}
+
+#bookmarks-table thead :is(th, td):last-child {
+   border-left: none;
+   text-align: right;
+}
+
+#bookmarks-table tbody {
+   background-color: var(--light);
+}
+
+#bookmarks-table #no-bookmarks td {
+   font-weight: 400;
+   text-align: center;
+   font-style: italic;
+   font-size: 20px;
+   color: var(--gray-600);
+   padding: 4rem 2rem;
+}
+
+#bookmarks-table tbody td {
+   border-top: 1px solid var(--gray-300);
+}
+
+#bookmarks-table :is(th, td):first-child {
+   width: 33%;
+}
+
+#bookmarks-table tbody td a {
+   color: var(--accent-dark);
+   text-decoration: none;
+   word-break: break-all;
+}
+
+#bookmarks-table tbody td a:hover {
+   text-decoration: underline;
+}
+
+#bookmarks-table tbody tr:nth-child(even) {
+   background-color: var(--gray-100);
+}
+
+#bookmarks-table tbody td .actions {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 0.5rem;
+}
+
+#bookmarks-table tbody td .actions button {
+   background-color: var(--gray-200);
+   width: 2rem;
+   height: 2rem;
+   border: none;
+   cursor: pointer;
+   border-radius: 0.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: all 0.2s ease;
+}
+
+#bookmarks-table tbody td .actions .delete-btn:hover {
+   background-color: var(--red-dark);
+   color: var(--light);
+}
+
+#bookmarks-table tbody td .actions .edit-btn:hover {
+   background-color: var(--accent-dark);
+   color: var(--light);
+}
+
+#bookmarks-table tbody td .actions button svg {
+   width: 1rem;
+   height: 1rem;
+}
