@@ -1,20 +1,17 @@
 :root {
-   --light: #ffffff;
-   --dark: #1a1b1b;
-   --gray-100: #fafafa;
-   --gray-200: #f2f2f8;
-   --gray-300: #e5eaec;
-   --gray-400: #acbcc2;
-   --gray-500: #91a0a7;
-   --gray-600: #6e7980;
-   --gray-700: #4c565c;
-   --accent: #b8e6fe;
-   --accent-dark: #2b7fff;
-   --accent-darker: #2a61b3;
-   --red: #ffe2e2;
-   --red-dark: #ff6467;
-
-   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+   --dark-bg: #202020;
+   --card-bg: #2C2C2C;
+   --text-white: #ffffff;
+   --text-light: #C0C0C0;
+   --text-medium: #888888;
+   --text-dark: #707070;
+   --text-inactive: #A0A0A0;
+   --border-color: #404040;
+   --accent: #ccff89;
+   --accent-hover: #b8e67a;
+   --red: #ff6467;
+   --red-light: #ffe2e2;
+   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -36,255 +33,250 @@ body {
    font-optical-sizing: auto;
    font-weight: 400;
    font-style: normal;
+   background-color: var(--dark-bg);
+   color: var(--text-white);
+   line-height: 1.6;
 }
 
 .outer-container {
    min-height: 100dvh;
    padding: 2rem 1rem;
-   background-color: var(--gray-300);
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
 
    @media screen and (min-width: 1280px) {
-      padding: 4rem 8rem;
+      padding: 4rem 2rem;
    }
 }
 
-.container {
-   max-width: 60rem;
+.main-card {
+   max-width: 80rem;
    width: 100%;
-   margin: 0 auto;
-   display: flex;
-   flex-direction: column;
-   background-color: var(--light);
+   background-color: var(--card-bg);
    border-radius: 1rem;
    box-shadow: var(--shadow-lg);
    overflow: hidden;
 }
 
-.container+.container {
-   margin-top: 1rem;
-
-   @media screen and (min-width: 1280px) {
-      margin-top: 2rem;
-   }
-}
-
-#header {
-   padding: 1rem 1.5rem;
-   border-bottom: 1px solid var(--gray-300);
+/* Header Styles */
+.header {
+   padding: 2rem 3rem;
    display: flex;
-   flex-direction: column;
-   align-items: stretch;
-   gap: 1rem;
-   border-top: 12px solid var(--accent-dark);
+   align-items: center;
+   justify-content: space-between;
+   border-bottom: 1px solid var(--border-color);
+   gap: 2rem;
 
-   @media screen and (min-width: 768px) {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      padding: 2rem 3rem;
-      gap: 3rem;
+   @media screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem;
    }
 }
 
-#header h1 {
-   font-weight: 500;
+.brand {
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+}
+
+.brand h1 {
+   font-weight: 600;
    font-size: 1.5rem;
+   color: var(--text-white);
+}
 
-   @media screen and (min-width: 1280px) {
-      font-size: 2.5rem;
+.brand-icon {
+   color: var(--text-light);
+   display: flex;
+   align-items: center;
+}
+
+.main-nav, .secondary-nav {
+   display: flex;
+   align-items: center;
+   gap: 2rem;
+
+   @media screen and (max-width: 768px) {
+      gap: 1rem;
+      flex-wrap: wrap;
    }
 }
 
-#header p {
-   font-weight: 400;
-   font-size: 1rem;
-   line-height: 1.375;
-   color: var(--gray-600);
-   margin-top: 0.5rem;
+.nav-link {
+   color: var(--text-inactive);
+   text-decoration: none;
+   font-weight: 500;
+   font-size: 0.95rem;
+   transition: color 0.2s ease;
+   cursor: default;
+   pointer-events: none;
+}
 
-   @media screen and (min-width: 1280px) {
-      font-size: 1.125rem;
+.nav-link:hover {
+   color: var(--text-inactive);
+}
+
+.nav-link.active {
+   color: var(--text-dark);
+}
+
+/* Main Title */
+.main-title {
+   padding: 3rem 3rem 2rem;
+   text-align: center;
+
+   @media screen and (max-width: 768px) {
+      padding: 2rem 2rem 1.5rem;
+   }
+}
+
+.main-title h2 {
+   font-size: 2.5rem;
+   font-weight: 700;
+   color: var(--text-white);
+   line-height: 1.2;
+
+   @media screen and (max-width: 768px) {
+      font-size: 2rem;
+   }
+}
+
+/* Form Section */
+.form-section {
+   padding: 0 3rem 2rem;
+   border-bottom: 1px solid var(--border-color);
+
+   @media screen and (max-width: 768px) {
+      padding: 0 2rem 1.5rem;
    }
 }
 
 form {
    display: flex;
    flex-direction: column;
-   align-items: stretch;
-   padding: 1.5rem;
    gap: 1.5rem;
-
-   @media screen and (min-width: 480px) {
-      align-items: flex-end;
-   }
-
-   @media screen and (min-width: 1280px) {
-      padding: 2rem 3rem;
-      gap: 2rem;
-   }
 }
 
-form .form-row {
-   width: 100%;
+.form-row {
    display: grid;
-   grid-template-columns: repeat(1, 1fr);
-   gap: 1.5rem;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 2rem;
 
-   @media screen and (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
+   @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
    }
 }
 
-form .form-row .form-input-container {
-   width: 100%;
+.form-input-container {
    display: flex;
    flex-direction: column;
-   align-items: stretch;
    gap: 0.5rem;
 }
 
-form .form-row .form-input-container label {
-   width: 100%;
-   display: inline-block;
+.form-input-container label {
+   color: var(--text-medium);
+   font-weight: 500;
+   font-size: 0.95rem;
 }
 
-form .form-row .form-input-container label sup {
-   color: #f00;
+.form-input-container label sup {
+   color: var(--red);
 }
 
-form .form-row .form-input-container :is(input[type="text"], input[type="url"]) {
-   width: 100%;
-   min-width: 0;
-   appearance: none;
-   border: 1px solid var(--gray-300);
-   background-color: var(--gray-100);
-   padding: 0.75rem 1rem;
+.form-input-container input {
+   background-color: var(--dark-bg);
+   border: 1px solid var(--border-color);
+   color: var(--text-white);
+   padding: 0.875rem 1rem;
    border-radius: 0.5rem;
-   font-size: 18px;
+   font-size: 1rem;
+   transition: border-color 0.2s ease;
 }
 
-form .form-row .form-input-container input.invalid {
-   border: 1px solid var(--red-dark);
-   background-color: var(--red);
+.form-input-container input::placeholder {
+   color: var(--text-dark);
 }
 
-form .form-row .form-input-container input.invalid+.error {
-   display: inline-block;
-   visibility: visible;
+.form-input-container input:focus {
+   border-color: var(--accent);
 }
 
-form .form-row .form-input-container :is(input[type="text"], input[type="url"])::placeholder {
-   color: var(--gray-600);
+.form-input-container input.invalid {
+   border-color: var(--red);
+   background-color: rgba(255, 100, 103, 0.1);
+}
+
+.form-input-container .error {
+   display: none;
+   color: var(--red);
+   font-size: 0.875rem;
+   margin-top: 0.25rem;
+}
+
+.form-input-container input.invalid + .error {
+   display: block;
 }
 
 .btn {
-   appearance: none;
-   border: 1px solid transparent;
-   background-color: var(--accent-dark);
-   color: var(--light);
-   padding: 0.75rem 1rem;
+   background-color: var(--accent);
+   color: #1a1a1a;
+   border: none;
+   padding: 0.875rem 2rem;
    border-radius: 0.5rem;
+   font-size: 1rem;
+   font-weight: 500;
    cursor: pointer;
-   font-size: 18px;
-   transition: background-color 0.2s ease-in;
-   display: inline-flex;
-   align-items: center;
-   justify-content: center;
-   gap: 1rem;
-   text-decoration: none;
-   cursor: pointer;
+   transition: background-color 0.2s ease;
+   align-self: flex-end;
+   min-width: 150px;
 }
 
-:is(.btn, .btn-icon) svg {
-   flex-shrink: 0;
-   width: 1.5rem;
-   height: 1.5rem;
+.btn:hover {
+   background-color: var(--accent-hover);
+   color: #1a1a1a;
 }
 
-:is(.btn, .btn-icon):hover {
-   background-color: var(--accent-darker);
-   color: var(--light);
-}
+/* Table Section */
+.table-section {
+   padding: 2rem 3rem;
 
-.btn-icon {
-   appearance: none;
-   border: 1px solid transparent;
-   background-color: var(--gray-200);
-   color: var(--gray-700);
-   padding: 0.375rem;
-   border-radius: 0.375rem;
-   cursor: pointer;
-   font-size: 18px;
-   transition: background-color 0.2s ease-in;
-   display: inline-flex;
-   align-items: center;
-   text-decoration: none;
-   cursor: pointer;
-}
-
-form .form-row .form-input-container .error {
-   display: none;
-   visibility: hidden;
-   color: #f00;
-   font-weight: 400;
-   font-size: 14px;
+   @media screen and (max-width: 768px) {
+      padding: 1.5rem 2rem;
+   }
 }
 
 table {
    width: 100%;
-   background-color: var(--light);
-   border-spacing: 0;
-}
-
-table thead {
-   width: 100%;
-   background-color: var(--gray-100);
+   border-collapse: collapse;
+   background-color: transparent;
 }
 
 table thead th {
-   font-weight: 500;
-   font-size: 1.125rem;
-}
-
-table :is(th, td) {
-   width: 100%;
-   padding: 1rem 1.4rem;
-   border-right: 1px solid var(--gray-300);
-   font-weight: 400;
+   color: var(--text-medium);
+   font-weight: 600;
+   font-size: 1rem;
    text-align: left;
-
-   @media screen and (min-width: 1280px) {
-      padding: 1rem 3rem;
-   }
-}
-
-table :is(th, td):last-child {
-   border-right: none;
-}
-
-table tbody {
-   background-color: var(--light);
-}
-
-table #no-bookmarks td {
-   font-weight: 400;
-   text-align: center;
-   font-style: italic;
-   font-size: 20px;
-   color: var(--gray-600);
-   padding: 4rem 2rem;
+   padding: 1rem 0;
+   border-bottom: 1px solid var(--border-color);
 }
 
 table tbody td {
-   border-top: 1px solid var(--gray-300);
+   color: var(--text-light);
+   padding: 1rem 0;
+   border-bottom: 1px solid var(--border-color);
+   font-size: 0.95rem;
 }
 
-table :is(th, td):first-child {
-   width: 33%;
+table tbody tr:last-child td {
+   border-bottom: none;
 }
 
 table tbody td a {
-   color: var(--accent-dark);
+   color: var(--accent);
    text-decoration: none;
    word-break: break-all;
 }
@@ -293,60 +285,118 @@ table tbody td a:hover {
    text-decoration: underline;
 }
 
-table tbody tr:nth-child(even) {
-   background-color: var(--gray-100);
+table #no-bookmarks td {
+   text-align: center;
+   font-style: italic;
+   color: var(--text-dark);
+   padding: 3rem 1rem;
+   font-size: 1.1rem;
 }
 
-table tbody td .actions {
+.actions {
    display: flex;
    align-items: center;
    justify-content: center;
    gap: 0.5rem;
-
-   @media screen and (min-width: 1280px) {
-      gap: 1rem;
-   }
 }
 
-table tbody td .actions button {
-   background-color: var(--gray-200);
-   color: var(--gray-700);
-   width: 2rem;
-   height: 2rem;
-   border: none;
+.actions button {
+   background-color: transparent;
+   border: 1px solid var(--border-color);
+   color: var(--text-light);
+   width: 2.5rem;
+   height: 2.5rem;
+   border-radius: 0.375rem;
    cursor: pointer;
-   border-radius: 0.5rem;
    display: flex;
    align-items: center;
    justify-content: center;
    transition: all 0.2s ease;
+}
 
-   @media screen and (min-width: 1280px) {
-      width: 2.5rem;
-      height: 2.5rem;
+.actions .delete-btn:hover {
+   background-color: var(--red);
+   border-color: var(--red);
+   color: var(--text-white);
+}
+
+.actions .edit-btn:hover {
+   background-color: var(--accent);
+   border-color: var(--accent);
+   color: #1a1a1a;
+}
+
+.actions button svg {
+   width: 1.25rem;
+   height: 1.25rem;
+}
+
+/* Pagination */
+#pagination {
+   display: none;
+   visibility: hidden;
+   padding: 2rem 3rem;
+   border-top: 1px solid var(--border-color);
+   justify-content: center;
+   align-items: center;
+   gap: 2rem;
+
+   @media screen and (max-width: 768px) {
+      padding: 1.5rem 2rem;
+      gap: 1rem;
    }
 }
 
-table tbody td .actions .delete-btn:hover {
-   background-color: var(--red-dark);
-   color: var(--light);
+#pagination.shown {
+   display: flex;
+   visibility: visible;
 }
 
-table tbody td .actions .edit-btn:hover {
-   background-color: var(--accent-dark);
-   color: var(--light);
+.btn-icon {
+   background-color: transparent;
+   border: 1px solid var(--border-color);
+   color: var(--text-light);
+   padding: 0.5rem;
+   border-radius: 0.375rem;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
-table tbody td .actions button svg {
-   width: 1rem;
-   height: 1rem;
-
-   @media screen and (min-width: 1280px) {
-      width: 1.5rem;
-      height: 1.5rem;
-   }
+.btn-icon:hover {
+   background-color: var(--accent);
+   border-color: var(--accent);
+   color: var(--text-white);
 }
 
+#pagination ul {
+   display: flex;
+   align-items: center;
+   gap: 0.25rem;
+   list-style: none;
+}
+
+#pagination ul li button {
+   background-color: transparent;
+   border: none;
+   color: var(--text-light);
+   min-width: 2.5rem;
+   height: 2.5rem;
+   border-radius: 0.375rem;
+   cursor: pointer;
+   font-size: 0.95rem;
+   transition: all 0.2s ease;
+}
+
+#pagination ul li button.active,
+#pagination ul li button:hover {
+   background-color: var(--accent);
+   color: #1a1a1a;
+}
+
+/* Modal Styles */
 #edit-modal {
    display: none;
    visibility: hidden;
@@ -354,15 +404,15 @@ table tbody td .actions button svg {
    inset: 0;
    width: 100%;
    height: 100%;
+   z-index: 1000;
    display: grid;
    place-items: center;
    padding: 2rem 1rem;
-   z-index: 1;
 }
 
 #edit-modal .backdrop {
-   background-color: rgba(0, 0, 0, 0.25);
-   backdrop-filter: blur(12px);
+   background-color: rgba(0, 0, 0, 0.5);
+   backdrop-filter: blur(8px);
    position: fixed;
    inset: 0;
    width: 100%;
@@ -370,51 +420,36 @@ table tbody td .actions button svg {
    z-index: 1;
 }
 
-#edit-modal .container {
+.modal-card {
+   background-color: var(--card-bg);
+   border-radius: 1rem;
+   box-shadow: var(--shadow-lg);
+   max-width: 50rem;
+   width: 100%;
    position: relative;
-   z-index: 1;
+   z-index: 2;
+   overflow: hidden;
 }
 
-#pagination {
-   display: none;
-   visibility: hidden;
-   gap: 2rem;
-   border-top: 1px solid var(--gray-300);
-   padding: 2rem;
+.modal-header {
+   padding: 2rem 3rem 1.5rem;
+   border-bottom: 1px solid var(--border-color);
+
+   @media screen and (max-width: 768px) {
+      padding: 1.5rem 2rem 1rem;
+   }
 }
 
-#pagination.shown {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   visibility: visible;
+.modal-header h2 {
+   font-size: 1.5rem;
+   font-weight: 600;
+   color: var(--text-white);
 }
 
-#pagination ul {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   gap: 0.25rem;
-   list-style: none;
-}
+#edit-modal form {
+   padding: 1.5rem 3rem 2rem;
 
-#pagination ul li button {
-   display: inline-flex;
-   align-items: center;
-   justify-content: center;
-   background-color: transparent;
-   border: none;
-   cursor: pointer;
-   font-size: 1.125rem;
-   color: var(--gray-700);
-   min-width: 2rem;
-   height: 2rem;
-   padding: 0 0.5rem;
-   transition: all 0.2s ease;
-   border-radius: 2rem;
-}
-
-#pagination ul li button.active,
-#pagination ul li button:hover {
-   background-color: var(--gray-200);
+   @media screen and (max-width: 768px) {
+      padding: 1rem 2rem 1.5rem;
+   }
 }

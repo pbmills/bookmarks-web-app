@@ -15,38 +15,65 @@
 
 <body>
    <div class="outer-container">
-      <!-- Header with Form -->
-      <div class="container">
-         <div id="header">
-            <h1>🔖 Bookmarks Web App</h1>
-         </div>
-         <form id="url-form" action="">
-            <div class="form-row">
-               <div class="form-input-container">
-                  <label for="title">Title</label>
-                  <input type="text" name="title" id="title" placeholder="Some Title">
-               </div>
-               <div class="form-input-container">
-                  <label for="url">URL<sup>*</sup></label>
-                  <input type="text" name="url" id="url" placeholder="https://example.com" required>
-                  <p class="error">The entered URL is invalid</p>
+      <!-- Main Content Card -->
+      <div class="main-card">
+         <!-- Header with Navigation -->
+         <div class="header">
+            <div class="brand">
+               <h1>🔖 Bookmarks</h1>
+               <div class="brand-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                     <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="currentColor"/>
+                  </svg>
                </div>
             </div>
-            <button type="submit" id="submit-btn" class="btn">Submit Bookmark</button>
-         </form>
-      </div>
-      <!-- Display Bookmarks -->
-      <div class="container">
-         <table id="bookmarks-table">
-            <thead>
-               <tr>
-                  <th>Title</th>
-                  <th>URL</th>
-                  <th>Actions</th>
-               </tr>
-            </thead>
-            <tbody></tbody>
-         </table>
+            <nav class="main-nav">
+               <a href="#" class="nav-link">Home</a>
+               <a href="#" class="nav-link active">Bookmarks</a>
+               <a href="#" class="nav-link">Categories</a>
+               <a href="#" class="nav-link">Settings</a>
+            </nav>
+
+         </div>
+
+         <!-- Main Title -->
+         <div class="main-title">
+            <h2>No surprises. Just simple bookmarks.</h2>
+         </div>
+
+         <!-- Add Bookmark Form -->
+         <div class="form-section">
+            <form id="url-form" action="">
+               <div class="form-row">
+                  <div class="form-input-container">
+                     <label for="title">Title</label>
+                     <input type="text" name="title" id="title" placeholder="Enter bookmark title">
+                  </div>
+                  <div class="form-input-container">
+                     <label for="url">URL<sup>*</sup></label>
+                     <input type="text" name="url" id="url" placeholder="https://example.com" required>
+                     <p class="error">The entered URL is invalid</p>
+                  </div>
+               </div>
+               <button type="submit" id="submit-btn" class="btn">Add Bookmark</button>
+            </form>
+         </div>
+
+         <!-- Bookmarks Table -->
+         <div class="table-section">
+            <table id="bookmarks-table">
+               <thead>
+                  <tr>
+                     <th>Title</th>
+                     <th>URL</th>
+                     <th>Actions</th>
+                  </tr>
+               </thead>
+               <tbody></tbody>
+            </table>
+         </div>
+
+         <!-- Pagination -->
          <div id="pagination">
             <button id="previous-page" class="btn-icon" aria-label="Previous Page" title="Previous Page">
                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -66,18 +93,19 @@
          </div>
       </div>
    </div>
+
    <!-- Edit Modal -->
    <div id="edit-modal">
       <div class="backdrop"></div>
-      <div class="container">
-         <div id="header">
-            <h1>Update Bookmark</h1>
+      <div class="modal-card">
+         <div class="modal-header">
+            <h2>Update Bookmark</h2>
          </div>
          <form id="edit-form" action="">
             <div class="form-row">
                <div class="form-input-container">
                   <label for="edit-title">Update Title</label>
-                  <input type="text" name="title" id="edit-title" placeholder="Some Title">
+                  <input type="text" name="title" id="edit-title" placeholder="Enter bookmark title">
                </div>
                <div class="form-input-container">
                   <label for="edit-url">Update URL<sup>*</sup></label>
