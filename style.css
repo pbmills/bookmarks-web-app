@@ -41,7 +41,7 @@ body {
    min-height: 100dvh;
    padding: 2rem 1rem;
    background-color: var(--gray-300);
-   
+
    @media screen and (min-width: 1280px) {
       padding: 4rem 8rem;
    }
@@ -59,9 +59,9 @@ body {
    overflow: hidden;
 }
 
-.container + .container {
+.container+.container {
    margin-top: 1rem;
-   
+
    @media screen and (min-width: 1280px) {
       margin-top: 2rem;
    }
@@ -70,18 +70,39 @@ body {
 #header {
    padding: 1rem 1.5rem;
    border-bottom: 1px solid var(--gray-300);
-   
-   @media screen and (min-width: 1280px) {
-      padding: 2rem 4rem;
+   display: flex;
+   flex-direction: column;
+   align-items: stretch;
+   gap: 1rem;
+   border-top: 12px solid var(--accent-dark);
+
+   @media screen and (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 3rem;
+      gap: 3rem;
    }
 }
 
 #header h1 {
    font-weight: 500;
    font-size: 1.5rem;
-   
+
    @media screen and (min-width: 1280px) {
       font-size: 2.5rem;
+   }
+}
+
+#header p {
+   font-weight: 400;
+   font-size: 1rem;
+   line-height: 1.375;
+   color: var(--gray-600);
+   margin-top: 0.5rem;
+
+   @media screen and (min-width: 1280px) {
+      font-size: 1.125rem;
    }
 }
 
@@ -91,13 +112,13 @@ body {
    align-items: stretch;
    padding: 1.5rem;
    gap: 1.5rem;
-   
+
    @media screen and (min-width: 480px) {
       align-items: flex-end;
    }
-   
+
    @media screen and (min-width: 1280px) {
-      padding: 2rem 4rem;
+      padding: 2rem 3rem;
       gap: 2rem;
    }
 }
@@ -107,7 +128,7 @@ body {
    display: grid;
    grid-template-columns: repeat(1, 1fr);
    gap: 1.5rem;
-   
+
    @media screen and (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
    }
@@ -146,7 +167,7 @@ body {
    background-color: var(--red);
 }
 
-#url-form .form-row .form-input-container input.invalid + .error {
+#url-form .form-row .form-input-container input.invalid+.error {
    display: inline-block;
    visibility: visible;
 }
@@ -155,7 +176,7 @@ body {
    color: var(--gray-600);
 }
 
-#url-form [type="submit"] {
+.btn {
    appearance: none;
    border: 1px solid transparent;
    background-color: var(--accent-dark);
@@ -165,6 +186,21 @@ body {
    cursor: pointer;
    font-size: 18px;
    transition: background-color 0.2s ease-in;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   gap: 1rem;
+   text-decoration: none;
+}
+
+.btn svg {
+   flex-shrink: 0;
+   width: 1.5rem;
+   height: 1.5rem;
+}
+
+.btn:hover {
+   background-color: var(--accent-darker);
 }
 
 #url-form .form-row .form-input-container .error {
@@ -175,39 +211,43 @@ body {
    font-size: 14px;
 }
 
-#url-form [type="submit"]:hover {
-   background-color: var(--accent-darker);
-}
-
-#bookmarks-table {
+table {
    width: 100%;
    background-color: var(--light);
    border-spacing: 0;
 }
 
-#bookmarks-table thead {
+table thead {
    width: 100%;
    background-color: var(--gray-100);
 }
 
-#bookmarks-table :is(th, td) {
+table thead th {
+   font-weight: 500;
+   font-size: 1.125rem;
+}
+
+table :is(th, td) {
    width: 100%;
    padding: 1rem 1.4rem;
    border-right: 1px solid var(--gray-300);
-   font-weight: 500;
+   font-weight: 400;
    text-align: left;
+
+   @media screen and (min-width: 1280px) {
+      padding: 1rem 3rem;
+   }
 }
 
-#bookmarks-table thead :is(th, td):last-child {
-   border-left: none;
-   text-align: right;
+table thead :is(th, td):last-child {
+   border-right: none;
 }
 
-#bookmarks-table tbody {
+table tbody {
    background-color: var(--light);
 }
 
-#bookmarks-table #no-bookmarks td {
+table #no-bookmarks td {
    font-weight: 400;
    text-align: center;
    font-style: italic;
@@ -216,36 +256,40 @@ body {
    padding: 4rem 2rem;
 }
 
-#bookmarks-table tbody td {
+table tbody td {
    border-top: 1px solid var(--gray-300);
 }
 
-#bookmarks-table :is(th, td):first-child {
+table :is(th, td):first-child {
    width: 33%;
 }
 
-#bookmarks-table tbody td a {
+table tbody td a {
    color: var(--accent-dark);
    text-decoration: none;
    word-break: break-all;
 }
 
-#bookmarks-table tbody td a:hover {
+table tbody td a:hover {
    text-decoration: underline;
 }
 
-#bookmarks-table tbody tr:nth-child(even) {
+table tbody tr:nth-child(even) {
    background-color: var(--gray-100);
 }
 
-#bookmarks-table tbody td .actions {
+table tbody td .actions {
    display: flex;
    align-items: center;
    justify-content: center;
    gap: 0.5rem;
+
+   @media screen and (min-width: 1280px) {
+      gap: 1rem;
+   }
 }
 
-#bookmarks-table tbody td .actions button {
+table tbody td .actions button {
    background-color: var(--gray-200);
    width: 2rem;
    height: 2rem;
@@ -256,19 +300,29 @@ body {
    align-items: center;
    justify-content: center;
    transition: all 0.2s ease;
+
+   @media screen and (min-width: 1280px) {
+      width: 2.5rem;
+      height: 2.5rem;
+   }
 }
 
-#bookmarks-table tbody td .actions .delete-btn:hover {
+table tbody td .actions .delete-btn:hover {
    background-color: var(--red-dark);
    color: var(--light);
 }
 
-#bookmarks-table tbody td .actions .edit-btn:hover {
+table tbody td .actions .edit-btn:hover {
    background-color: var(--accent-dark);
    color: var(--light);
 }
 
-#bookmarks-table tbody td .actions button svg {
+table tbody td .actions button svg {
    width: 1rem;
    height: 1rem;
+
+   @media screen and (min-width: 1280px) {
+      width: 1.25rem;
+      height: 1.25rem;
+   }
 }

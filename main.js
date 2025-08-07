@@ -1,23 +1,24 @@
 class BookmarkApp {
-  constructor(form, input, submitButton, tableBody) {
+  constructor(form, input, submitButton, tableBody, tableBodyResult) {
     this.form = form;
     this.input = input;
     this.submitButton = submitButton;
     this.tableBody = tableBody;
+    this.tableBodyResult = tableBodyResult;
+    this.resultBookmark = {};
     this.bookmarks = [];
-
-    this.input.addEventListener('input', () => {
-      this.input.classList.remove('invalid')
-    })
   }
 
   getBookmarks() {
     const stored = window.localStorage.getItem('bookmarks');
+    const storedResult = window.localStorage.getItem('resultBookmark');
     this.bookmarks = stored ? JSON.parse(stored) : [];
+    this.resultBookmark = storedResult ? JSON.parse(storedResult) : [];
   }
 
   setBookmarks() {
-    window.localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks))
+    window.localStorage.setItem('resultBookmark', JSON.stringify(this.resultBookmark));
+    window.localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
   }
 
   deleteBookmark(id) {
@@ -41,7 +42,6 @@ class BookmarkApp {
         const urlLink = document.createElement('a');
         urlLink.href = bookmark["url"];
         urlLink.target = "_blank";
-        urlLink.rel = "noopener noreferrer";
         urlLink.innerText = bookmark["url"];
         url.appendChild(urlLink);
 
@@ -67,6 +67,28 @@ class BookmarkApp {
       this.addActionListeners();
     } else {
       this.tableBody.innerHTML = '<tr id="no-bookmarks"><td colspan="3">No Bookmarks added so far...</td></tr>';
+    }
+  }
+
+  renderResultBookmark() {
+    if (Object.keys(this.resultBookmark).length > 0) {
+      this.tableBodyResult.innerHTML = "";
+      const row = document.createElement("tr");
+
+      const title = document.createElement("td");
+      title.innerText = this.resultBookmark["title"] || "N/A";
+
+      const url = document.createElement("td");
+      const urlLink = document.createElement("a");
+      urlLink.href = this.resultBookmark["url"];
+      urlLink.target = "_blank";
+      urlLink.innerText = this.resultBookmark["url"];
+      url.appendChild(urlLink);
+
+      row.append(title, url)
+      this.tableBodyResult.appendChild(row);
+    } else {
+      this.tableBodyResult.innerHTML = `<tr id="no-bookmarks"><td colspan="2">There must be an error.</td></tr>`;
     }
   }
 
@@ -139,10 +161,12 @@ class BookmarkApp {
       newBookmark['id'] = time + Math.floor(Math.random() * 1000);
 
       this.bookmarks.push(newBookmark);
+      this.resultBookmark = newBookmark;
       this.setBookmarks();
       this.renderBookmarks();
 
       this.resetForm()
+      window.location.href = '/result'
     } else {
       this.submitButtonReset()
       this.input.classList.add('invalid');
@@ -160,6 +184,14 @@ class BookmarkApp {
         this.handleSubmit();
       })
     }
+    if (this.input) {
+      this.input.addEventListener('input', () => {
+        this.input.classList.remove('invalid')
+      })
+    }
+    if (this.tableBodyResult) {
+      this.renderResultBookmark()
+    }
   }
 }
 
@@ -168,6 +200,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const input = form?.querySelector('#url');
   const submitButton = form?.querySelector('#submit-btn');
   const tableBody = document.querySelector('#bookmarks-table tbody');
-  const myApp = new BookmarkApp(form, input, submitButton, tableBody);
+  const tableBodyResult = document.querySelector('#result-table tbody');
+  const myApp = new BookmarkApp(form, input, submitButton, tableBody, tableBodyResult);
   myApp.init();
 })
