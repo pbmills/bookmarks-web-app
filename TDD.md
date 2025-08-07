@@ -27,12 +27,18 @@ bookmarks-web-app/
 
 ### Data Storage
 - **Local Storage**: Chosen for simplicity and no backend requirements
+- **Storage Keys**: 
+  - `bookmarks`: Array of bookmark objects
+  - `resultBookmark`: Single bookmark object for result page
+- **JSON Format**: Data serialized using JSON.stringify/parse
 
 ### UI/UX Design
 - **Dark Theme**: Reduces eye strain and modern aesthetic
 - **Accessibility**: Focus states, semantic HTML, and keyboard navigation
 
 ### State Management
+- **Class-Based Architecture**: BookmarkApp class manages all state
+- **Event-Driven**: DOM events trigger state updates
 - **Pagination**: Client-side pagination (20 items per page)
 - **Modal State**: Edit modal state managed
 
@@ -54,62 +60,3 @@ Bookmark {
   url: string        // Website URL
 }
 ```
-
-### CSS Architecture
-- **CSS Custom Properties**: Theme colors and spacing
-- **Mobile-First**: Responsive breakpoints
-- **BEM-like Naming**: Component-based CSS structure
-- **Flexbox/Grid**: Modern layout techniques
-
-## Limitations
-
-### Technical Constraints
-1. **Client-Side Only**: No server-side persistence or backup
-2. **Browser Storage Limits**: Local storage capped at ~5-10MB
-3. **No Data Sync**: Bookmarks not shared across devices
-4. **No Search**: Basic filtering not implemented
-5. **No Categories**: No bookmark organization system
-
-### Browser Compatibility
-- **Modern Browsers**: Chrome, Firefox, Safari, Edge (ES6+)
-- **No IE Support**: Uses modern JavaScript features
-- **Local Storage**: Requires browser support for persistence
-
-### Security Considerations
-- **XSS Protection**: Input sanitization for user data
-- **No Authentication**: All data stored locally
-- **URL Validation**: Basic format checking only
-
-## Future Enhancements
-
-### Potential Improvements
-- **Backend Integration**: Server-side storage and sync
-- **User Authentication**: Multi-user support
-- **Advanced Search**: Full-text search capabilities
-- **Bookmark Categories**: Organizational features
-- **Import/Export**: Data portability
-- **Offline Support**: Service worker implementation
-
-### Scalability Considerations
-- **Database Migration**: If moving to server-side storage
-- **API Design**: RESTful endpoints for bookmark management
-- **Caching Strategy**: For improved performance
-- **Error Handling**: Comprehensive error management
-
-## Performance Metrics
-
-### Current Performance
-- **Load Time**: < 1 second (static assets)
-- **Storage**: Minimal memory footprint
-- **Rendering**: Efficient DOM updates
-- **Responsiveness**: 60fps interactions
-
-### Optimization Opportunities
-- **Code Splitting**: If adding more features
-- **Lazy Loading**: For large bookmark collections
-- **Virtual Scrolling**: For very large datasets
-- **Service Workers**: For offline functionality
-
----
-
-*Document Version: 1.0 | Last Updated: 2024* 

@@ -30,3 +30,7 @@ The app uses:
 - Green buttons (`#ccff89`)
 - Clean text using Inter font
 - Works on phones and computers
+
+## Technical Design Document (TDD)
+
+For detailed technical design and architecture, refer to the [TDD.md](TDD.md) file.
