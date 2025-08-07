@@ -27,18 +27,12 @@ bookmarks-web-app/
 
 ### Data Storage
 - **Local Storage**: Chosen for simplicity and no backend requirements
-- **Storage Keys**: 
-  - `bookmarks`: Array of bookmark objects
-  - `resultBookmark`: Single bookmark object for result page
-- **JSON Format**: Data serialized using JSON.stringify/parse
 
 ### UI/UX Design
 - **Dark Theme**: Reduces eye strain and modern aesthetic
 - **Accessibility**: Focus states, semantic HTML, and keyboard navigation
 
 ### State Management
-- **Class-Based Architecture**: BookmarkApp class manages all state
-- **Event-Driven**: DOM events trigger state updates
 - **Pagination**: Client-side pagination (20 items per page)
 - **Modal State**: Edit modal state managed
 
@@ -60,3 +54,9 @@ Bookmark {
   url: string        // Website URL
 }
 ```
+
+### CSS Architecture
+- **CSS Custom Properties**: Theme colors and spacing
+- **Mobile-First**: Responsive breakpoints
+- **BEM-like Naming**: Component-based CSS structure
+- **Flexbox/Grid**: Modern layout techniques
