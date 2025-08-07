@@ -1,10 +1,16 @@
 class BookmarkApp {
-  constructor(form, input, tableBody) {
+  constructor(form, input, submitButton, tableBody) {
     this.form = form;
     this.input = input;
+    this.submitButton = submitButton;
     this.tableBody = tableBody;
     this.bookmarks = [];
+
+    this.input.addEventListener('input', () => {
+      this.input.classList.remove('invalid')
+    })
   }
+
   getBookmarks() {
     const stored = window.localStorage.getItem('bookmarks');
     this.bookmarks = stored ? JSON.parse(stored) : [];
@@ -69,12 +75,12 @@ class BookmarkApp {
     deleteButtons.forEach(button => {
       button.addEventListener('click', (e) => {
         e.preventDefault();
-        const id = parseInt(button.dataset.bookmarkId);
+        const id = parseInt(button.dataset.bookmarkId, 10);
         this.deleteBookmark(id);
       });
     });
 
-    const editButtons = document.querySelectorAll('.edit-btn');
+    const editButtons = this.tableBody.querySelectorAll('.edit-btn');
     editButtons.forEach(button => {
       button.addEventListener('click', (e) => {
         e.preventDefault();
@@ -85,19 +91,9 @@ class BookmarkApp {
 
   isValidUrl(string) {
     try {
-      new URL(string);
-      return true;
+      const url = new URL(string);
+      return url.protocol === "https:" || url.protocol === "http:";
     } catch (_) {
-      return false;
-    }
-  }
-
-  async urlExists(url) {
-    try {
-      const response = await fetch(url, { method: 'HEAD' });
-      onsole.log('URL:', url, 'Status:', response.status, 'OK?', response.ok);
-      return response.ok;
-    } catch {
       return false;
     }
   }
@@ -110,7 +106,25 @@ class BookmarkApp {
     return true;
   }
 
+  submitButtonDisabled() {
+    this.submitButton.classList.add('disabled');
+    this.submitButton.innerHTML = '<span>Validating</span>';
+  }
+
+  submitButtonReset() {
+    this.submitButton.classList.add('disabled');
+    this.submitButton.innerHTML = 'Submit Bookmark';
+  }
+
+  resetForm() {
+    this.submitButtonReset()
+    this.input.classList.remove('invalid');
+    this.form.reset();
+  }
+
   async handleSubmit() {
+    this.submitButtonDisabled();
+
     if (await this.validateInput()) {
       const formData = new FormData(this.form);
       const date = new Date();
@@ -122,14 +136,15 @@ class BookmarkApp {
         newBookmark[name] = value;
       }
 
-      newBookmark['id'] = time;
+      newBookmark['id'] = time + Math.floor(Math.random() * 1000);
 
       this.bookmarks.push(newBookmark);
       this.setBookmarks();
       this.renderBookmarks();
 
-      this.form.reset();
+      this.resetForm()
     } else {
+      this.submitButtonReset()
       this.input.classList.add('invalid');
     }
   }
@@ -151,7 +166,8 @@ class BookmarkApp {
 window.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('#url-form');
   const input = form?.querySelector('#url');
+  const submitButton = form?.querySelector('#submit-btn');
   const tableBody = document.querySelector('#bookmarks-table tbody');
-  const myApp = new BookmarkApp(form, input, tableBody);
+  const myApp = new BookmarkApp(form, input, submitButton, tableBody);
   myApp.init();
 })
