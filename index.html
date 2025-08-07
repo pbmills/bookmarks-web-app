@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,11 @@
    <link rel="stylesheet" href="./style.css">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+   <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet">
 </head>
+
 <body>
    <div class="outer-container">
       <!-- Header with Form -->
@@ -43,6 +47,23 @@
             </thead>
             <tbody></tbody>
          </table>
+         <div id="pagination">
+            <button id="previous-page" class="btn-icon" aria-label="Previous Page" title="Previous Page">
+               <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.25 6.75L4.75 12L10.25 17.25"></path>
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 12H5"></path>
+               </svg>
+            </button>
+            <ul></ul>
+            <button id="next-page" class="btn-icon" aria-label="Next Page" title="Next Page">
+               <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                     d="M13.75 6.75L19.25 12L13.75 17.25"></path>
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                     d="M19 12H4.75"></path>
+               </svg>
+            </button>
+         </div>
       </div>
    </div>
    <!-- Edit Modal -->
@@ -70,4 +91,5 @@
    </div>
    <script src="./main.js"></script>
 </body>
+
 </html>

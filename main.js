@@ -1,5 +1,5 @@
 class BookmarkApp {
-  constructor(form, editModal, editForm, tableBody, tableBodyResult) {
+  constructor(form, editModal, editForm, tableBody, tableBodyResult, pagination) {
     // Form elements
     this.form = form;
     this.input = form?.querySelector('[name="url"]');
@@ -18,6 +18,16 @@ class BookmarkApp {
     this.tableBody = tableBody;
     this.tableBodyResult = tableBodyResult;
 
+    // Pagination
+    this.maxCount = 20;
+    this.currentPage = 0;
+    this.pagination = pagination;
+    this.paginationList = this.pagination?.querySelector('ul');
+    this.paginationButtons = null;
+    this.paginationPrev = this.pagination?.querySelector('#previous-page');
+    this.paginationNext = this.pagination?.querySelector('#next-page');
+    this.batches = [];
+
     // Data
     this.resultBookmark = {};
     this.bookmarks = [];
@@ -35,6 +45,49 @@ class BookmarkApp {
     localStorage.setItem('resultBookmark', JSON.stringify(this.resultBookmark));
   }
 
+  // Pagination
+
+  paginationButtonEvents() {
+    this.paginationButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        this.currentPage = Number(button.dataset.setPage);
+        this.renderBookmarks();
+      });
+    });
+  }
+
+  checkPagination() {
+    this.batches = this.batchArray(this.bookmarks, this.maxCount);
+
+    if (this.pagination) {
+      if (this.bookmarks.length > this.maxCount) {
+        this.pagination.classList.add('shown');
+        this.paginationList.innerHTML = '';
+
+        this.batches.forEach((batch, index) => {
+          const pageCount = document.createElement('li');
+          const pageButton = document.createElement('button');
+          pageButton.innerText = index + 1;
+          pageButton.dataset.setPage = index;
+          pageCount.appendChild(pageButton);
+          this.paginationList.appendChild(pageCount);
+        })
+
+        this.paginationButtons = this.paginationList?.querySelectorAll('button');
+        this.paginationButtons.forEach(button => {
+          if (Number(button.dataset.setPage) === this.currentPage) {
+            button.classList.add('active');
+          } else {
+            button.classList.remove('active');
+          }
+        });
+        this.paginationButtonEvents()
+      } else {
+        this.pagination.classList.remove('shown');
+      }
+    }
+  }
+
   // Rendering
 
   renderBookmarks() {
@@ -45,9 +98,21 @@ class BookmarkApp {
       return;
     }
 
+    this.checkPagination();
+
+    if (this.currentPage >= this.batches.length) {
+      this.currentPage = this.batches.length - 1;
+    }
+
+    if (this.currentPage < 0) {
+      this.currentPage = 0;
+    }
+
+
+
     const fragment = document.createDocumentFragment();
 
-    this.bookmarks.forEach(bookmark => {
+    this.batches[this.currentPage].forEach(bookmark => {
       const row = document.createElement('tr');
 
       row.appendChild(this.createCell(bookmark.title || 'N/A'));
@@ -196,7 +261,16 @@ class BookmarkApp {
     );
   }
 
-  // Utility 
+  // Utility
+
+  batchArray(arr, batchSize) {
+    const batches = [];
+    for (let i = 0; i < arr.length; i += batchSize) {
+      batches.push(arr.slice(i, i + batchSize));
+    }
+    return batches;
+  }
+
   isValidUrl(str) {
     try {
       const url = new URL(str);
@@ -249,6 +323,26 @@ class BookmarkApp {
     window.addEventListener('keydown', (e) => {
       if (e.code === 'Escape') this.hideEditModal();
     });
+
+    if (this.paginationPrev && this.paginationNext) {
+      if (this.paginationPrev) {
+      this.paginationPrev.addEventListener('click', () => {
+        if (this.currentPage > 0) {
+          this.currentPage -= 1;
+          this.renderBookmarks();
+        }
+      });
+    }
+
+    if (this.paginationNext) {
+      this.paginationNext.addEventListener('click', () => {
+        if (this.currentPage < this.batches.length - 1) {
+          this.currentPage += 1;
+          this.renderBookmarks();
+        }
+      });
+    }
+    }
   }
 }
 
@@ -260,7 +354,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const editForm = document.querySelector('#edit-form');
   const tableBody = document.querySelector('#bookmarks-table tbody');
   const tableBodyResult = document.querySelector('#result-table tbody');
+  const pagination = document.querySelector('#pagination');
 
-  const app = new BookmarkApp(form, editModal, editForm, tableBody, tableBodyResult);
+  const app = new BookmarkApp(form, editModal, editForm, tableBody, tableBodyResult, pagination);
   app.init();
 });

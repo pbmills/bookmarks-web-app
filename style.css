@@ -192,16 +192,34 @@ form .form-row .form-input-container :is(input[type="text"], input[type="url"]):
    justify-content: center;
    gap: 1rem;
    text-decoration: none;
+   cursor: pointer;
 }
 
-.btn svg {
+:is(.btn, .btn-icon) svg {
    flex-shrink: 0;
    width: 1.5rem;
    height: 1.5rem;
 }
 
-.btn:hover {
+:is(.btn, .btn-icon):hover {
    background-color: var(--accent-darker);
+   color: var(--light);
+}
+
+.btn-icon {
+   appearance: none;
+   border: 1px solid transparent;
+   background-color: var(--gray-200);
+   color: var(--gray-700);
+   padding: 0.375rem;
+   border-radius: 0.375rem;
+   cursor: pointer;
+   font-size: 18px;
+   transition: background-color 0.2s ease-in;
+   display: inline-flex;
+   align-items: center;
+   text-decoration: none;
+   cursor: pointer;
 }
 
 form .form-row .form-input-container .error {
@@ -240,7 +258,7 @@ table :is(th, td) {
    }
 }
 
-table thead :is(th, td):last-child {
+table :is(th, td):last-child {
    border-right: none;
 }
 
@@ -355,4 +373,48 @@ table tbody td .actions button svg {
 #edit-modal .container {
    position: relative;
    z-index: 1;
+}
+
+#pagination {
+   display: none;
+   visibility: hidden;
+   gap: 2rem;
+   border-top: 1px solid var(--gray-300);
+   padding: 2rem;
+}
+
+#pagination.shown {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   visibility: visible;
+}
+
+#pagination ul {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 0.25rem;
+   list-style: none;
+}
+
+#pagination ul li button {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   background-color: transparent;
+   border: none;
+   cursor: pointer;
+   font-size: 1.125rem;
+   color: var(--gray-700);
+   min-width: 2rem;
+   height: 2rem;
+   padding: 0 0.5rem;
+   transition: all 0.2s ease;
+   border-radius: 2rem;
+}
+
+#pagination ul li button.active,
+#pagination ul li button:hover {
+   background-color: var(--gray-200);
 }
