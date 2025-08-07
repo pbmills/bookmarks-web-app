@@ -204,7 +204,7 @@ class BookmarkApp {
     this.renderBookmarks();
     this.resetForm();
 
-    window.location.href = '/result';
+    window.location.href = '/result.html';
   }
 
   async handleEdit() {
