@@ -15,31 +15,53 @@
 
 <body>
   <div class="outer-container">
-    <div class="container">
-      <div id="header">
-        <div>
-          <h1>Bookmark Saved 🥳</h1>
-          <p>Thank you for your submission. <br>The Bookmark you entered has been saved successfully.</p>
+    <!-- Main Content Card -->
+    <div class="main-card">
+      <!-- Header with Navigation -->
+      <div class="header">
+        <div class="brand">
+          <h1>🔖 Bookmarks</h1>
+          <div class="brand-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="currentColor"/>
+            </svg>
+          </div>
         </div>
-        <a href="/" class="btn">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-          </svg>
-          <span>Back to Overview</span>
-        </a>
+        <nav class="main-nav">
+          <a href="#" class="nav-link">Home</a>
+          <a href="#" class="nav-link active">Bookmarks</a>
+          <a href="#" class="nav-link">Categories</a>
+          <a href="#" class="nav-link">Settings</a>
+        </nav>
       </div>
-    </div>
-    <div class="container">
-      <table id="result-table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>URL</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+
+      <!-- Success Message Section -->
+      <div class="success-section">
+        <div class="success-content">
+          <h2>Bookmark Saved 🥳</h2>
+          <p>Thank you for your submission. The Bookmark you entered has been saved successfully.</p>
+          <a href="/" class="btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+            <span>Back to Overview</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Results Table Section -->
+      <div class="table-section">
+        <table id="result-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </div>
   <script src="./main.js"></script>
