@@ -80,15 +80,15 @@ class BookmarkApp {
 
       const url = document.createElement("td");
       const urlLink = document.createElement("a");
-      urlLink.href = this.resultBookmark["url"];
+      urlLink.href = this.resultBookmark["url"] || "#";
       urlLink.target = "_blank";
-      urlLink.innerText = this.resultBookmark["url"];
+      urlLink.innerText = this.resultBookmark["url"] || "#";
       url.appendChild(urlLink);
 
       row.append(title, url)
       this.tableBodyResult.appendChild(row);
     } else {
-      this.tableBodyResult.innerHTML = `<tr id="no-bookmarks"><td colspan="2">There must be an error.</td></tr>`;
+      this.tableBodyResult.innerHTML = `<tr id="no-bookmarks"><td colspan="2">There must be a problem.</td></tr>`;
     }
   }
 
