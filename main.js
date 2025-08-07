@@ -1,8 +1,17 @@
 class BookmarkApp {
-  constructor(form, input, submitButton, tableBody, tableBodyResult) {
+  constructor(form, editModal, editForm, tableBody, tableBodyResult) {
     this.form = form;
-    this.input = input;
-    this.submitButton = submitButton;
+    this.input = this.form?.querySelector('[name="url"]');
+    this.submitButton = this.form?.querySelector('[name="submit"]');
+
+    this.editModal = editModal;
+    this.editModalBackdrop = this.editModal?.querySelector('.backdrop');
+    this.editForm = editForm;
+    this.editTitleInput = this.editForm?.querySelector('[name="title"]');
+    this.editURLInput = this.editForm?.querySelector('[name="url"]');
+    this.editSubmitButton = this.editForm?.querySelector('[type="submit"]');
+    this.editID = undefined;
+
     this.tableBody = tableBody;
     this.tableBodyResult = tableBodyResult;
     this.resultBookmark = {};
@@ -92,6 +101,34 @@ class BookmarkApp {
     }
   }
 
+  showEditModal(id) {
+    if (this.editModal) {
+      this.editModal.style.display = 'grid';
+      this.editModal.style.visibility = 'visible';
+
+      const matchingBookmarks = this.bookmarks.filter(b => b.id === id);
+
+      if (matchingBookmarks.length && this.editTitleInput && this.editURLInput) {
+        const selectedBookmark = matchingBookmarks[0];
+        this.editTitleInput.value = selectedBookmark['title'];
+        this.editURLInput.value = selectedBookmark['url'];
+      }
+    }
+  }
+
+  hideEditModal() {
+    this.editID = undefined;
+    if (this.editModal) {
+      this.editModal.style.display = 'none';
+      this.editModal.style.visibility = 'hidden';
+
+      if (this.editTitleInput && this.editURLInput) {
+        this.editTitleInput.value = '';
+        this.editURLInput.value = '';
+      }
+    }
+  }
+
   addActionListeners() {
     const deleteButtons = this.tableBody.querySelectorAll('.delete-btn');
     deleteButtons.forEach(button => {
@@ -107,6 +144,8 @@ class BookmarkApp {
       button.addEventListener('click', (e) => {
         e.preventDefault();
         const id = parseInt(button.dataset.bookmarkId);
+        this.editID = id;
+        this.showEditModal(id)
       });
     });
   }
@@ -120,34 +159,20 @@ class BookmarkApp {
     }
   }
 
-  async validateInput() {
-    const inputValue = this.input.value;
+  async validateInput(inputValue) {
     if (!this.isValidUrl(inputValue)) {
       return false;
     }
     return true;
   }
 
-  submitButtonDisabled() {
-    this.submitButton.classList.add('disabled');
-    this.submitButton.innerHTML = '<span>Validating</span>';
-  }
-
-  submitButtonReset() {
-    this.submitButton.classList.add('disabled');
-    this.submitButton.innerHTML = 'Submit Bookmark';
-  }
-
   resetForm() {
-    this.submitButtonReset()
     this.input.classList.remove('invalid');
     this.form.reset();
   }
 
   async handleSubmit() {
-    this.submitButtonDisabled();
-
-    if (await this.validateInput()) {
+    if (await this.validateInput(this.input.value)) {
       const formData = new FormData(this.form);
       const date = new Date();
       const time = date.getTime();
@@ -168,27 +193,78 @@ class BookmarkApp {
       this.resetForm()
       window.location.href = '/result'
     } else {
-      this.submitButtonReset()
       this.input.classList.add('invalid');
+    }
+  }
+
+  async handleEdit() {
+    if (await this.validateInput(this.editURLInput.value)) {
+      const formData = new FormData(this.editForm);
+
+      const newBookmark = {};
+
+      for (const [name, value] of formData.entries()) {
+        newBookmark[name] = value;
+      }
+
+      const index = this.bookmarks.findIndex(b => b.id === this.editID);
+      
+      this.bookmarks[index].title = newBookmark.title;
+      this.bookmarks[index].url = newBookmark.url;
+
+      this.setBookmarks();
+      this.renderBookmarks();
+
+      this.hideEditModal()
+    } else {
+      this.editURLInput.classList.add('invalid');
     }
   }
 
   init() {
     this.getBookmarks();
+
     if (this.tableBody) {
       this.renderBookmarks();
     }
+
     if (this.form) {
       this.form.addEventListener('submit', (e) => {
         e.preventDefault();
         this.handleSubmit();
       })
     }
+
+    if (this.editForm) {
+      this.editForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.handleEdit();
+      })
+    }
+
     if (this.input) {
       this.input.addEventListener('input', () => {
         this.input.classList.remove('invalid')
       })
     }
+
+    if (this.editURLInput) {
+      this.editURLInput.addEventListener('input', () => {
+        this.editURLInput.classList.remove('invalid')
+      })
+    }
+
+    if (this.editModalBackdrop) {
+      this.editModalBackdrop.addEventListener('click', () => {
+        this.hideEditModal()
+      })
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape') {
+          this.hideEditModal()
+        }
+      })
+    }
+
     if (this.tableBodyResult) {
       this.renderResultBookmark()
     }
@@ -197,10 +273,10 @@ class BookmarkApp {
 
 window.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('#url-form');
-  const input = form?.querySelector('#url');
-  const submitButton = form?.querySelector('#submit-btn');
+  const editModal = document.querySelector('#edit-modal');
+  const editForm = document.querySelector('#edit-form');
   const tableBody = document.querySelector('#bookmarks-table tbody');
   const tableBodyResult = document.querySelector('#result-table tbody');
-  const myApp = new BookmarkApp(form, input, submitButton, tableBody, tableBodyResult);
+  const myApp = new BookmarkApp(form, editModal, editForm, tableBody, tableBodyResult);
   myApp.init();
 })

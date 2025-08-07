@@ -11,6 +11,7 @@
 </head>
 <body>
    <div class="outer-container">
+      <!-- Header with Form -->
       <div class="container">
          <div id="header">
             <h1>🔖 Bookmarks Web App</h1>
@@ -30,6 +31,7 @@
             <button type="submit" id="submit-btn" class="btn">Submit Bookmark</button>
          </form>
       </div>
+      <!-- Display Bookmarks -->
       <div class="container">
          <table id="bookmarks-table">
             <thead>
@@ -41,6 +43,29 @@
             </thead>
             <tbody></tbody>
          </table>
+      </div>
+   </div>
+   <!-- Edit Modal -->
+   <div id="edit-modal">
+      <div class="backdrop"></div>
+      <div class="container">
+         <div id="header">
+            <h1>Update Bookmark</h1>
+         </div>
+         <form id="edit-form" action="">
+            <div class="form-row">
+               <div class="form-input-container">
+                  <label for="edit-title">Update Title</label>
+                  <input type="text" name="title" id="edit-title" placeholder="Some Title">
+               </div>
+               <div class="form-input-container">
+                  <label for="edit-url">Update URL<sup>*</sup></label>
+                  <input type="text" name="url" id="edit-url" placeholder="https://example.com" required>
+                  <p class="error">The entered URL is invalid</p>
+               </div>
+            </div>
+            <button type="submit" id="submit-btn" class="btn">Update Bookmark</button>
+         </form>
       </div>
    </div>
    <script src="./main.js"></script>
