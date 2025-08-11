@@ -281,7 +281,28 @@ class BookmarkApp {
   }
 
   async validateInput(inputValue) {
-    return this.isValidUrl(inputValue);
+    if (!this.isValidUrl(inputValue)) {
+      return false;
+    }
+    
+    try {
+      await fetch(inputValue, { method: 'HEAD', mode: 'no-cors' });
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async checkUrlAvailability(url) {
+    try {
+      const response = await fetch(url, { 
+        method: 'HEAD',
+        mode: 'no-cors'
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
   resetForm() {
